@@ -1,9 +1,9 @@
 # Sword Health Tasks API
 This is a project made in AdonisJS to manage Task.
 
-### Features
+## Features
 
-### Auth
+#### Auth
 - Sign Up
 - Login
 - Get Logged User info
