@@ -1,6 +1,6 @@
 // import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import { schema, rules } from '@ioc:Adonis/Core/Validator'
-import User from 'App/Models/User'
+import UserService from 'App/Services/UserService'
 
 export default class AuthController {
 
@@ -13,28 +13,20 @@ export default class AuthController {
             password: schema.string(),
         })
         
-        const payload = await request.validate({ schema: signupSchema })
+        await request.validate({ schema: signupSchema })
 
-        const foundUser = await User.findBy('email', request.input('email'))
-        if(foundUser)
+        const result = await UserService.signup(
+            request.input('email'),
+            request.input('password'),
+            request.input('role')
+        )
+
+        if(!result.success)
         {
-            return response.abort({
-                success: false,
-                message: "email is used"
-            }, 400)
+            return response.abort(result, 400)
         }
 
-        const user = new User()
-        user.email = request.input('email')
-        user.password = request.input('password')
-        user.role = request.input('role')
-        await user.save()
-
-        return {
-            success: true,
-            message: "account created successfully",
-            user
-        }
+        return result;
     }
 
     public async login({ request, response, auth }) {
@@ -48,21 +40,18 @@ export default class AuthController {
         
         const payload = await request.validate({ schema: loginSchema })
 
-        try {
-            const token = await auth.use('api').attempt(request.input('email'), request.input('password'))
+        const result = await UserService.login(
+            auth,
+            request.input('email'),
+            request.input('password')
+        )
 
-            return {
-                success: true,
-                message: "login successfully",
-                token
-            }            
-        } catch
+        if(!result.success)
         {
-            return response.unauthorized({
-                success: false,
-                message: "invalid credentials",
-            })
+            return response.unauthorized(result)
         }
+
+        return result;
     }
 
     public async me({ auth }) {
