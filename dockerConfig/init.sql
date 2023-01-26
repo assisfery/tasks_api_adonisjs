@@ -1,0 +1,2 @@
+CREATE DATABASE sword_health_tasks_db;
+USE sword_health_tasks_db;

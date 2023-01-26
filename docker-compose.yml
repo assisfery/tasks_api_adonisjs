@@ -1,9 +1,38 @@
 version: '3.8'
 
 services:
+
+  mysql:
+    container_name: mysql
+    image: mysql
+    extra_hosts: [ 'host.docker.internal:host-gateway' ]
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+        MYSQL_ROOT_PASSWORD: password
+    volumes:
+      - ./dockerConfig/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+      - mysql-volume:/var/lib/mysql
+    ports:
+      - 3306:3306
+  
+  adminer:
+    container_name: adminer
+    image: adminer
+    extra_hosts: [ 'host.docker.internal:host-gateway' ]
+    restart: always
+    environment:
+      ADMINER_DEFAULT_SERVER: mysql
+    depends_on:
+      - mysql
+    ports:
+      - 8888:8080
+
   adonis_app:
     container_name: adonis_app
     restart: always
+    depends_on:
+      - mysql
     build:
       context: .
       target: dependencies
@@ -16,4 +45,7 @@ services:
       - ./:/home/node/app
       # Uncomment the below line if you developing on MacOS
       #- /home/node/app/node_modules
-    command: dumb-init node ace serve --watch --node-args="--inspect=0.0.0.0"
+    command: sh  -c "node ace migration:run && dumb-init node ace serve --watch --node-args="--inspect=0.0.0.0" "
+
+volumes:
+  mysql-volume:
