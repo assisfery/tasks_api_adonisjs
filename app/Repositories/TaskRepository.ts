@@ -33,4 +33,9 @@ export default class TaskRepository {
         return await Task.find(task_id)
     }
 
+    public static async getAll()
+    {
+        return await Task.all()
+    }
+
 }

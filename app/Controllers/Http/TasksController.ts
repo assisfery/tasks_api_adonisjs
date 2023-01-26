@@ -46,9 +46,24 @@ export default class TasksController {
     return result
   }
 
+  public async getAll({auth, response}: HttpContextContract) {
+
+    if(auth.user?.isManager())
+    {
+      return await TaskService.getAll()
+    }
+    else
+    {
+      return response.unauthorized("no access")
+    }
+
+  }
+
   // public async edit({}: HttpContextContract) {}
 
   public async update({}: HttpContextContract) {}
 
   public async destroy({}: HttpContextContract) {}
+
+  
 }

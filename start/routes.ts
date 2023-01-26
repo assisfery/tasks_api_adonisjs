@@ -31,6 +31,7 @@ Route.group(() => {
 
   Route.get('auth/me', 'AuthController.me')
 
+  Route.get('tasks/all', 'TasksController.getAll')
   Route.resource('tasks', 'TasksController').apiOnly()
 
 }).middleware('auth')

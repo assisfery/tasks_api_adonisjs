@@ -21,4 +21,9 @@ export default class TaskService {
     {
         return await TaskRepository.getTaskById(task_id)
     }
+
+    public static async getAll()
+    {
+        return await TaskRepository.getAll()
+    }
 }
