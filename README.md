@@ -15,6 +15,21 @@ This is a project made in AdonisJS to manage Task.
 - Delete a Task
 - Get all Tasks
 
+## Setup
+Clone the repository
+```
+git clone https://github.com/assisfery/sword_health_tasks_api_adonisjs.git
+```
+
+Create .env
+```
+cp .env.example .env
+```
+
+Run with docker
+```
+docker compose up
+```
 
 ## Tests
 
