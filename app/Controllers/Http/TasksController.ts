@@ -26,7 +26,25 @@ export default class TasksController {
     return result
   }
 
-  public async show({}: HttpContextContract) {}
+  public async show({auth, params, response}: HttpContextContract) {
+
+    if(auth.user?.isManager())
+    {
+      var result = await TaskService.getTaskById(params.id)
+    }
+    else
+    {
+      var result = await TaskService.getUserTaskById(auth.user?.id, params.id)
+    }
+
+    if(!result)
+    {
+      response.status(404)
+      return "Not found"
+    }
+
+    return result
+  }
 
   // public async edit({}: HttpContextContract) {}
 

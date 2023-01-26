@@ -19,4 +19,18 @@ export default class TaskRepository {
         return task
     }
 
+    public static async getUserTaskById(user_id, task_id)
+    {
+        return await Task
+        .query()
+        .where('user_id', user_id)
+        .where('id', task_id)
+        .first()
+    }
+
+    public static async getTaskById(task_id)
+    {
+        return await Task.find(task_id)
+    }
+
 }

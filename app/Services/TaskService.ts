@@ -11,4 +11,14 @@ export default class TaskService {
     {
         return await TaskRepository.create(user_id, summary)
     }
+
+    public static async getUserTaskById(user_id, task_id)
+    {
+        return await TaskRepository.getUserTaskById(user_id, task_id)
+    }
+
+    public static async getTaskById(task_id)
+    {
+        return await TaskRepository.getTaskById(task_id)
+    }
 }
