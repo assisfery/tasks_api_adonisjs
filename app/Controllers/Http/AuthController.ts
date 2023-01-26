@@ -27,6 +27,7 @@ export default class AuthController {
         const user = new User()
         user.email = request.input('email')
         user.password = request.input('password')
+        user.role = request.input('role')
         await user.save()
 
         return {
