@@ -20,7 +20,7 @@ test.group('Auth', () => {
 
   test('try signup', async ({ client }) => {
 
-    var randomEmail = string.generateRandom(32) + "@yes.pt"
+    var randomEmail = string.generateRandom(16) + "@yes.pt"
 
     const response = await client.post('/auth/signup')
     .fields({
@@ -33,7 +33,7 @@ test.group('Auth', () => {
 
   test('try login', async ({ client }) => {
 
-    var randomEmail = string.generateRandom(32) + "@yes.pt"
+    var randomEmail = string.generateRandom(16) + "@yes.pt"
 
     await client.post('/auth/signup')
     .fields({
