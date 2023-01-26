@@ -22,3 +22,8 @@ This is a project made in AdonisJS to manage Task.
 You can use postman collection to test the API manually,
 just import the file **sword_health_tasks_api.postman_collection.json**
 
+#### Japa
+Run the follow command to execute tests
+```
+node ace test
+```
