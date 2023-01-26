@@ -38,7 +38,7 @@ export default class AuthController {
             password: schema.string(),
         })
         
-        const payload = await request.validate({ schema: loginSchema })
+       await request.validate({ schema: loginSchema })
 
         const result = await UserService.login(
             auth,
