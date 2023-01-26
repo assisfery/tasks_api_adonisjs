@@ -38,4 +38,36 @@ export default class TaskRepository {
         return await Task.all()
     }
 
+    public static async editTask(task_id, summary, status)
+    {
+        var task = await Task.find(task_id)
+
+        if(task)
+        {
+            task.summary = summary
+            task.status = status
+            await task.save()
+        }
+
+        return task
+    }
+
+    public static async editUserTask(user_id, task_id, summary, status)
+    {
+        var task = await Task
+        .query()
+        .where('user_id', user_id)
+        .where('id', task_id)
+        .first()
+
+        if(task)
+        {
+            task.summary = summary
+            task.status = status
+            await task.save()
+        }
+
+        return task
+    }
+
 }

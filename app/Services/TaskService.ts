@@ -26,4 +26,42 @@ export default class TaskService {
     {
         return await TaskRepository.getAll()
     }
+
+    public static async editTask(task_id, summary, status)
+    {
+        const task = await TaskRepository.editTask(task_id, summary, status)
+
+        if(!task)
+        {
+            return {
+                success: false,
+                message: "task not found",
+            }
+        }
+
+        return {
+            success: true,
+            message: "task edited successfully",
+            task
+        }
+    }
+
+    public static async editUserTask(user_id, task_id, summary, status)
+    {
+        const task = await TaskRepository.editUserTask(user_id, task_id, summary, status)
+
+        if(!task)
+        {
+            return {
+                success: false,
+                message: "task not found",
+            }
+        }
+
+        return {
+            success: true,
+            message: "task edited successfully",
+            task
+        }
+    }
 }

@@ -61,7 +61,41 @@ export default class TasksController {
 
   // public async edit({}: HttpContextContract) {}
 
-  public async update({}: HttpContextContract) {}
+  public async update({params, auth, request, response}: HttpContextContract) {
+
+    const createTaskSchema = schema.create({
+        summary: schema.string(),
+        status: schema.number(),
+    })
+    
+    await request.validate({ schema: createTaskSchema })
+
+    if(auth.user?.isManager())
+    {
+      var result = await TaskService.editTask(
+        params.id,
+        request.input('summary'),
+        request.input('status')
+      )
+    }
+    else
+    {
+      var result = await TaskService.editUserTask(
+        auth.user?.id,
+        params.id,
+        request.input('summary'),
+        request.input('status')
+      )
+    }
+
+    if(!result.success)
+    {
+      response.status(404)
+      return result
+    }
+
+    return result
+  }
 
   public async destroy({}: HttpContextContract) {}
 
