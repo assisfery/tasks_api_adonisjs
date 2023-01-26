@@ -64,4 +64,23 @@ export default class TaskService {
             task
         }
     }
+
+    public static async delete(task_id)
+    {
+        const task = await TaskRepository.delete(task_id)
+
+        if(!task)
+        {
+            return {
+                success: false,
+                message: "task not found",
+            }
+        }
+
+        return {
+            success: true,
+            message: "task deleted successfully",
+            task
+        }
+    }
 }

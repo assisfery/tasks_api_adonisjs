@@ -97,7 +97,26 @@ export default class TasksController {
     return result
   }
 
-  public async destroy({}: HttpContextContract) {}
+  public async destroy({params, auth, response}: HttpContextContract) {
+
+    if(auth.user?.isManager())
+    {
+      var result = await TaskService.delete(params.id)
+
+      if(!result.success)
+      {
+        response.status(404)
+        return result
+      }
+
+      return result
+    }
+    else
+    {
+      return response.unauthorized("no access")
+    }
+
+  }
 
   
 }

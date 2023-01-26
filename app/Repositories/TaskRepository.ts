@@ -70,4 +70,16 @@ export default class TaskRepository {
         return task
     }
 
+    public static async delete(task_id)
+    {
+        var task = await Task.find(task_id)
+
+        if(task)
+        {
+            await task.delete()
+        }
+
+        return task
+    }
+
 }
