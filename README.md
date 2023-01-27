@@ -1,4 +1,4 @@
-# Sword Health Tasks API
+# Tasks API in AdonisJS
 This is a project made in AdonisJS to manage Task.
 
 ## Features
