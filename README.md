@@ -31,6 +31,13 @@ Run with docker
 docker compose up
 ```
 
+Access the api in
+http://127.0.0.1:3333
+
+Access the adminer in
+http://127.0.0.1:8888
+
+
 ## Tests
 
 #### Postman

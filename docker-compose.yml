@@ -2,6 +2,7 @@ version: '3.8'
 
 services:
 
+  # mysql database
   mysql:
     container_name: mysql
     image: mysql
@@ -16,6 +17,7 @@ services:
     ports:
       - 3306:3306
   
+  # ui to manage database
   adminer:
     container_name: adminer
     image: adminer
@@ -28,6 +30,7 @@ services:
     ports:
       - 8888:8080
 
+  # nodejs app
   adonis_app:
     container_name: adonis_app
     restart: always
