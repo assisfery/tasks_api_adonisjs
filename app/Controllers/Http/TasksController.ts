@@ -73,6 +73,7 @@ export default class TasksController {
     if(auth.user?.isManager())
     {
       var result = await TaskService.editTask(
+        auth.user?.id,
         params.id,
         request.input('summary'),
         request.input('status')

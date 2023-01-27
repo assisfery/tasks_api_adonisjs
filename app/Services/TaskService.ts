@@ -1,4 +1,5 @@
 import TaskRepository from "App/Repositories/TaskRepository"
+import NotifyService from "App/Services/NotifyService"
 
 export default class TaskService {
 
@@ -27,7 +28,7 @@ export default class TaskService {
         return await TaskRepository.getAll()
     }
 
-    public static async editTask(task_id, summary, status)
+    public static async editTask(user_id, task_id, summary, status)
     {
         const task = await TaskRepository.editTask(task_id, summary, status)
 
@@ -37,6 +38,13 @@ export default class TaskService {
                 success: false,
                 message: "task not found",
             }
+        }
+
+        if(status == 1)
+        {
+            await NotifyService.sendToQueue({
+                message: "The tech " + user_id + " performed the task " + task.id + " on date " + task.updatedAt.toFormat('yyyy-MM-dd HH:mm:ss')
+            })
         }
 
         return {
@@ -56,6 +64,13 @@ export default class TaskService {
                 success: false,
                 message: "task not found",
             }
+        }
+
+        if(status == 1)
+        {
+            await NotifyService.sendToQueue({
+                message: "The tech " + user_id + " performed the task " + task.id + " on date " + task.updatedAt.toFormat('yyyy-MM-dd HH:mm:ss')
+            })
         }
 
         return {
