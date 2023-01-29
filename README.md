@@ -49,3 +49,8 @@ Run the follow command to execute tests
 ```
 node ace test
 ```
+
+Run the test from outside the docker container
+```
+docker exec -it -u 0 adonis_app sh -c "node ace test"
+```
