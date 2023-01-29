@@ -37,6 +37,9 @@ http://127.0.0.1:3333
 Access the adminer in
 http://127.0.0.1:8888
 
+Access the kafdrop in
+http://127.0.0.1:9000
+
 
 ## Tests
 

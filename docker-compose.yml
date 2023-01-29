@@ -50,7 +50,7 @@ services:
       #- /home/node/app/node_modules
     command: sh  -c "node ace migration:run && dumb-init node ace serve --watch --node-args="--inspect=0.0.0.0" "
 
-  # kafka stuffs
+  # zookeeper
   zookeeper:
     container_name: zookeeper
     image: wurstmeister/zookeeper
@@ -60,7 +60,8 @@ services:
         - 2181:2181
     environment:
         KAFKA_ADVERTISED_HOST_NAME: zookeeper
-      
+  
+  # kafka
   kafka:
     container_name: kafka
     image: wurstmeister/kafka
@@ -77,6 +78,7 @@ services:
     depends_on:
         - zookeeper
 
+  # web ui for kafka
   kafdrop:
     container_name: kafdrop
     image: obsidiandynamics/kafdrop
