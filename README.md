@@ -57,3 +57,8 @@ Run the test from outside the docker container
 ```
 docker exec -it -u 0 adonis_app sh -c "node ace test"
 ```
+
+## Listen Events
+```
+docker exec -it -u 0 adonis_app sh -c "node ace listen:events"
+```
