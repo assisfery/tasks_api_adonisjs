@@ -42,7 +42,7 @@ export default class TaskService {
 
         if(status == 1)
         {
-            await NotifyService.sendToQueue({
+            NotifyService.sendToQueue({
                 message: "The tech " + user_id + " performed the task " + task.id + " on date " + task.updatedAt.toFormat('yyyy-MM-dd HH:mm:ss')
             })
         }
@@ -68,7 +68,7 @@ export default class TaskService {
 
         if(status == 1)
         {
-            await NotifyService.sendToQueue({
+            NotifyService.sendToQueue({
                 message: "The tech " + user_id + " performed the task " + task.id + " on date " + task.updatedAt.toFormat('yyyy-MM-dd HH:mm:ss')
             })
         }
