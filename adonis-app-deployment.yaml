@@ -1,0 +1,102 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: D:\Software\Minikube\kompose.exe convert
+    kompose.version: 1.26.0 (40646f47)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: adonis-app
+  name: adonis-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: adonis-app
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: D:\Software\Minikube\kompose.exe convert
+        kompose.version: 1.26.0 (40646f47)
+      creationTimestamp: null
+      labels:
+        io.kompose.service: adonis-app
+    spec:
+      containers:
+        - args:
+            - sh
+            - -c
+            - 'node ace migration:run && dumb-init node ace serve --watch --node-args=--inspect=0.0.0.0 '
+          env:
+            - name: APP_KEY
+              valueFrom:
+                configMapKeyRef:
+                  key: APP_KEY
+                  name: env
+            - name: DB_CONNECTION
+              valueFrom:
+                configMapKeyRef:
+                  key: DB_CONNECTION
+                  name: env
+            - name: DRIVE_DISK
+              valueFrom:
+                configMapKeyRef:
+                  key: DRIVE_DISK
+                  name: env
+            - name: HOST
+              valueFrom:
+                configMapKeyRef:
+                  key: HOST
+                  name: env
+            - name: MYSQL_DB_NAME
+              valueFrom:
+                configMapKeyRef:
+                  key: MYSQL_DB_NAME
+                  name: env
+            - name: MYSQL_HOST
+              valueFrom:
+                configMapKeyRef:
+                  key: MYSQL_HOST
+                  name: env
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  key: MYSQL_PASSWORD
+                  name: env
+            - name: MYSQL_PORT
+              valueFrom:
+                configMapKeyRef:
+                  key: MYSQL_PORT
+                  name: env
+            - name: MYSQL_USER
+              valueFrom:
+                configMapKeyRef:
+                  key: MYSQL_USER
+                  name: env
+            - name: NODE_ENV
+              valueFrom:
+                configMapKeyRef:
+                  key: NODE_ENV
+                  name: env
+            - name: PORT
+              valueFrom:
+                configMapKeyRef:
+                  key: PORT
+                  name: env
+          image: adonis-app
+          name: adonis-app
+          ports:
+            - containerPort: 3333
+            - containerPort: 9229
+          resources: {}
+          volumeMounts:
+            - mountPath: /home/node/app
+              name: adonis-app-claim0
+      restartPolicy: Always
+      volumes:
+        - name: adonis-app-claim0
+          persistentVolumeClaim:
+            claimName: adonis-app-claim0
+status: {}
